@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="viewport-meta">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bartłomiej Pięciak - CV</title>
     <!-- Import czcionki Inter dla nowoczesnego, czystego wyglądu -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,19 +20,6 @@
                         secondary: '#475569', // Szary dla tekstów pobocznych
                     }
                 }
-            }
-        }
-
-        function toggleMobileView() {
-            const viewportMeta = document.getElementById('viewport-meta');
-            const btnText = document.getElementById('viewToggleText');
-            
-            if (viewportMeta.getAttribute('content') === 'width=1024') {
-                viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                btnText.innerText = 'Wymuś widok A4 na telefonie';
-            } else {
-                viewportMeta.setAttribute('content', 'width=1024');
-                btnText.innerText = 'Wróć do widoku mobilnego';
             }
         }
     </script>
@@ -54,9 +41,6 @@
                 max-width: 100% !important;
                 padding: 0 !important;
                 border: none !important;
-                display: flex !important;
-                flex-direction: column !important;
-                min-height: 296mm !important; /* Wymusza pełną wysokość A4 */
             }
             .print-hide {
                 display: none !important;
@@ -64,53 +48,51 @@
             
             /* --- KRYTYCZNE POPRAWKI LAYOUTU DLA WYDRUKU --- */
             
-            /* 1. Wymuszenie układu dwukolumnowego i rozciągnięcia */
+            /* 1. Wymuszenie układu dwukolumnowego */
             .cv-grid {
                 display: grid !important;
                 grid-template-columns: 2.1fr 1fr !important; /* Proporcje kolumn */
-                flex-grow: 1 !important; /* Wypełnia dostępną przestrzeń, odpychając stopkę w dół */
             }
             
-            /* 2. Kompresja marginesów i paddingów (Optymalny środek) */
+            /* 2. Kompresja marginesów i paddingów (Złoty środek) */
             .cv-header {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                padding: 1.4rem 2rem !important;
+                padding: 1.3rem 2rem !important;
             }
             .cv-header > div:last-child {
                 margin-top: 0 !important;
             }
             .cv-main {
-                padding: 1.4rem 2rem !important;
+                padding: 1.25rem 2rem !important;
             }
             .cv-sidebar {
-                padding: 1.4rem 1.6rem !important;
+                padding: 1.25rem 1.5rem !important;
             }
             .cv-footer {
-                padding: 0.5rem 2rem !important;
+                padding: 0.35rem 2rem !important;
                 font-size: 8px !important;
-                margin-top: auto !important; /* Dociska stopkę z RODO do samego dołu! */
             }
             
-            /* 3. Kompresja odstępów pionowych w sekcjach */
-            section.mb-10, section.mb-8 { margin-bottom: 0.95rem !important; }
-            .mb-8 { margin-bottom: 0.6rem !important; }
-            .mb-6 { margin-bottom: 0.5rem !important; }
-            .mb-4 { margin-bottom: 0.5rem !important; }
-            .mb-3 { margin-bottom: 0.4rem !important; }
-            .mt-6 { margin-top: 0.5rem !important; }
-            .mt-4 { margin-top: 0.3rem !important; }
-            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
-            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
+            /* 3. Kompresja odstępów pionowych w sekcjach (Złoty środek) */
+            section.mb-10, section.mb-8 { margin-bottom: 0.9rem !important; }
+            .mb-8 { margin-bottom: 0.55rem !important; }
+            .mb-6 { margin-bottom: 0.45rem !important; }
+            .mb-4 { margin-bottom: 0.45rem !important; }
+            .mb-3 { margin-bottom: 0.35rem !important; }
+            .mt-6 { margin-top: 0.45rem !important; }
+            .mt-4 { margin-top: 0.25rem !important; }
+            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem !important; }
+            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem !important; }
             
-            /* 4. Delikatne skalowanie czcionek (Optymalne proporcje) */
-            h1 { font-size: 2.1rem !important; line-height: 1 !important; }
-            h2 { font-size: 1.15rem !important; margin-top: 0.25rem !important; }
-            h3 { font-size: 0.98rem !important; margin-bottom: 0.4rem !important; }
-            h4, h5 { font-size: 0.82rem !important; }
-            p, li, span, a { font-size: 0.69rem !important; line-height: 1.36 !important; }
+            /* 4. Delikatne skalowanie czcionek (Wyważone) */
+            h1 { font-size: 2.05rem !important; line-height: 1 !important; }
+            h2 { font-size: 1.1rem !important; margin-top: 0.25rem !important; }
+            h3 { font-size: 0.95rem !important; margin-bottom: 0.4rem !important; }
+            h4, h5 { font-size: 0.8rem !important; }
+            p, li, span, a { font-size: 0.68rem !important; line-height: 1.35 !important; }
             
             /* 5. Kompresja tagów (pill) w umiejętnościach */
             .gap-2 { gap: 0.25rem !important; }
@@ -122,18 +104,11 @@
 <body class="bg-gray-100 font-sans text-gray-800 antialiased selection:bg-primary selection:text-white pb-10">
 
     <!-- Pasek narzędziowy widoczny tylko w przeglądarce (ukryty na wydruku) -->
-    <div class="max-w-5xl mx-auto mt-4 mb-4 flex flex-col sm:flex-row justify-between items-center print-hide px-4 gap-3">
-        <div class="hidden sm:block text-xs text-gray-500 font-medium">Opcje przeglądania (widoczne tylko na ekranie):</div>
-        <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            <button onclick="toggleMobileView()" class="w-full sm:w-auto bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                <span id="viewToggleText">Wymuś widok A4 na telefonie</span>
-            </button>
-            <button onclick="window.print()" class="w-full sm:w-auto bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex justify-center items-center transition-colors duration-200">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                Zapisz jako PDF / Drukuj
-            </button>
-        </div>
+    <div class="max-w-5xl mx-auto mt-6 mb-2 flex justify-end print-hide px-4">
+        <button onclick="window.print()" class="bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex items-center transition-colors duration-200">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            Zapisz jako PDF / Drukuj
+        </button>
     </div>
 
     <!-- Główny kontener CV -->
