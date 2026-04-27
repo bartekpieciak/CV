@@ -130,11 +130,12 @@
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                     +48 502 708 736
                 </a>
-                <a href="#" class="flex items-center gap-2 hover:text-primary transition-colors">
+                <!-- Poprawiony i skrócony link do LinkedIn -->
+                <a href="https://linkedin.com/in/bartłomiej-pięciak-a630b280" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-primary transition-colors">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                    linkedin.com/in/twoj-profil
+                    linkedin.com
                 </a>
-                <span class="flex items-center gap-2">
+                                <span class="flex items-center gap-2 mt-1">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Warszawa, Polska
                 </span>
@@ -232,8 +233,8 @@
                 </section>
             </div>
 
-            <!-- KOLUMNA PRAWA / BOCZNA (Umiejętności, Wykształcenie, itp.) -->
-            <div class="cv-sidebar lg:col-span-1 bg-slate-50 border-l border-gray-200 px-8 py-8 md:px-8 md:py-10">
+            <!-- KOLUMNA PRAWA / BOCZNA (Umiejętności, Wykształcenie, Kod QR) -->
+            <div class="cv-sidebar lg:col-span-1 bg-slate-50 border-l border-gray-200 px-8 py-8 md:px-8 md:py-10 flex flex-col">
                 
                 <!-- UMIEJĘTNOŚCI -->
                 <section class="mb-8">
@@ -325,6 +326,11 @@
                         </li>
                     </ul>
                 </section>
+                
+                <!-- KOD QR (dodany w prawym dolnym rogu bocznego paska) -->
+                <div class="mt-auto pt-6 flex justify-end print-hide-if-needed">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3APi%C4%99ciak%3BBart%C5%82omiej%3B%3B%3B%0AFN%3ABart%C5%82omiej%20Pi%C4%99ciak%0AEMAIL%3Abartek.pieciak%40gmail.com%0ATEL%3A%2B48%20502%20708%20736%0AURL%3Ahttps%3A%2F%2Flinkedin.com%2Fin%2Fbart%C5%82omiej-pi%C4%99ciak-a630b280%0AURL%3Ahttps%3A%2F%2Fbartekpieciak.github.io%2FCV%2F%0AEND%3AVCARD" alt="Skanuj, aby zapisać kontakt" class="w-24 h-24 border border-gray-200 p-1.5 bg-white rounded-md shadow-sm opacity-90 hover:opacity-100 transition-opacity">
+                </div>
 
             </div>
         </div>
