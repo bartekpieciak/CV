@@ -25,18 +25,37 @@
 
         function toggleMobileView() {
             const viewportMeta = document.getElementById('viewport-meta');
-            const btnText = document.getElementById('viewToggleText');
+            const plText = document.getElementById('viewToggleTextPl');
+            const enText = document.getElementById('viewToggleTextEn');
             
             if (viewportMeta.getAttribute('content') === 'width=1024') {
                 viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1.0');
-                btnText.innerText = 'Wymuś widok A4 na telefonie';
+                plText.innerText = 'Wymuś widok A4 na telefonie';
+                enText.innerText = 'Force A4 view on mobile';
             } else {
                 viewportMeta.setAttribute('content', 'width=1024');
-                btnText.innerText = 'Wróć do widoku mobilnego';
+                plText.innerText = 'Wróć do widoku mobilnego';
+                enText.innerText = 'Return to mobile view';
+            }
+        }
+
+        function toggleLanguage() {
+            document.body.classList.toggle('lang-en-active');
+            
+            if (document.body.classList.contains('lang-en-active')) {
+                document.documentElement.lang = 'en';
+                document.title = 'Bartłomiej Pięciak - Resume';
+            } else {
+                document.documentElement.lang = 'pl';
+                document.title = 'Bartłomiej Pięciak - CV';
             }
         }
     </script>
     <style>
+        /* System ukrywania/pokazywania języków */
+        body.lang-en-active .lang-pl { display: none !important; }
+        body:not(.lang-en-active) .lang-en { display: none !important; }
+
         /* Style dedykowane pod wydruk do PDF */
         @media print {
             @page {
@@ -71,44 +90,44 @@
                 flex-grow: 1 !important; /* Wypełnia dostępną przestrzeń, odpychając stopkę w dół */
             }
             
-            /* 2. Kompresja marginesów i paddingów (Optymalny środek) */
+            /* 2. Zwiększona kompresja marginesów i paddingów (aby zmieścić na 1 stronie) */
             .cv-header {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                padding: 1.4rem 2rem !important;
+                padding: 1.0rem 2rem !important; /* Mniej niż 1.4rem */
             }
             .cv-header > div:last-child {
                 margin-top: 0 !important;
             }
             .cv-main {
-                padding: 1.4rem 2rem !important;
+                padding: 1.0rem 2rem !important;
             }
             .cv-sidebar {
-                padding: 1.4rem 1.6rem !important;
+                padding: 1.0rem 1.6rem !important;
             }
             .cv-footer {
-                padding: 0.5rem 2rem !important;
+                padding: 0.4rem 2rem !important;
                 font-size: 8px !important;
                 margin-top: auto !important; /* Dociska stopkę z RODO do samego dołu! */
             }
             
-            /* 3. Kompresja odstępów pionowych w sekcjach */
-            section.mb-10, section.mb-8 { margin-bottom: 0.95rem !important; }
-            .mb-8 { margin-bottom: 0.6rem !important; }
-            .mb-6 { margin-bottom: 0.5rem !important; }
-            .mb-4 { margin-bottom: 0.5rem !important; }
-            .mb-3 { margin-bottom: 0.4rem !important; }
-            .mt-6 { margin-top: 0.5rem !important; }
-            .mt-4 { margin-top: 0.3rem !important; }
-            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
-            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.25rem !important; }
+            /* 3. Bardziej agresywna kompresja odstępów pionowych w sekcjach */
+            section.mb-10, section.mb-8 { margin-bottom: 0.75rem !important; }
+            .mb-8 { margin-bottom: 0.5rem !important; }
+            .mb-6 { margin-bottom: 0.4rem !important; }
+            .mb-4 { margin-bottom: 0.3rem !important; }
+            .mb-3 { margin-bottom: 0.3rem !important; }
+            .mt-6 { margin-top: 0.3rem !important; }
+            .mt-4 { margin-top: 0.2rem !important; }
+            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.15rem !important; }
+            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.15rem !important; }
             
             /* 4. Delikatne skalowanie czcionek (Optymalne proporcje) */
             h1 { font-size: 2.1rem !important; line-height: 1 !important; }
             h2 { font-size: 1.15rem !important; margin-top: 0.25rem !important; }
-            h3 { font-size: 0.98rem !important; margin-bottom: 0.4rem !important; }
+            h3 { font-size: 0.98rem !important; margin-bottom: 0.2rem !important; }
             h4, h5 { font-size: 0.82rem !important; }
             p, li, span, a { font-size: 0.69rem !important; line-height: 1.36 !important; }
             
@@ -123,15 +142,25 @@
 
     <!-- Pasek narzędziowy widoczny tylko w przeglądarce (ukryty na wydruku) -->
     <div class="max-w-5xl mx-auto mt-4 mb-4 flex flex-col sm:flex-row justify-between items-center print-hide px-4 gap-3">
-        <div class="hidden sm:block text-xs text-gray-500 font-medium">Opcje przeglądania (widoczne tylko na ekranie):</div>
+        <div class="hidden sm:block text-xs text-gray-500 font-medium">
+            <span class="lang-pl">Opcje przeglądania (widoczne tylko na ekranie):</span>
+            <span class="lang-en">Viewing options (screen only):</span>
+        </div>
         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <!-- Przycisk zmiany języka -->
+            <button onclick="toggleLanguage()" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm border border-gray-300">
+                <span class="lang-pl">🇬🇧 Switch to English</span>
+                <span class="lang-en">🇵🇱 Zmień na Polski</span>
+            </button>
             <button onclick="toggleMobileView()" class="w-full sm:w-auto bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                <span id="viewToggleText">Wymuś widok A4 na telefonie</span>
+                <span id="viewToggleTextPl" class="lang-pl">Wymuś widok A4 na telefonie</span>
+                <span id="viewToggleTextEn" class="lang-en">Force A4 view on mobile</span>
             </button>
-            <button onclick="window.print()" class="w-full sm:w-auto bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex justify-center items-center transition-colors duration-200">
+            <button onclick="window.print()" class="w-full sm:w-auto bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex justify-center items-center transition-colors duration-200 text-sm">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                Zapisz jako PDF / Drukuj
+                <span class="lang-pl">Zapisz jako PDF / Drukuj</span>
+                <span class="lang-en">Save as PDF / Print</span>
             </button>
         </div>
     </div>
@@ -161,7 +190,8 @@
                 </a>
                 <span class="flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    Warszawa, Polska
+                    <span class="lang-pl">Warszawa, Polska</span>
+                    <span class="lang-en">Warsaw, Poland</span>
                 </span>
             </div>
         </header>
@@ -173,18 +203,25 @@
             <div class="cv-main lg:col-span-2 px-8 py-8 md:px-12 md:py-10">
                 
                 <!-- PODSUMOWANIE -->
-                <section class="mb-10">
-                    <h3 class="text-xl font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">Podsumowanie profilu</h3>
+                <section class="mb-10 print:mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">
+                        <span class="lang-pl">Podsumowanie profilu</span>
+                        <span class="lang-en">Profile Summary</span>
+                    </h3>
                     <p class="text-gray-700 leading-relaxed text-justify">
-                        Doświadczony Analityk Biznesowy z silnym zapleczem w finansach, obsłudze klienta i zarządzaniu projektami, na co dzień pracujący w dynamicznym, międzynarodowym środowisku. Ekspert w dziedzinie automatyzacji procesów biznesowych i optymalizacji raportowania przy użyciu zaawansowanego Excela, Power Query oraz modeli generatywnej sztucznej inteligencji (ChatGPT, Copilot, Gemini). Skutecznie łączę wiedzę biznesową z rozwiązaniami technologicznymi, drastycznie redukując czas obsługi procesów operacyjnych. Obecnie poszukuję możliwości rozwoju w obszarze wdrażania innowacji technologicznych i analizy danych (AI / BI).
+                        <span class="lang-pl">Doświadczony Analityk Biznesowy z silnym zapleczem w finansach, obsłudze klienta i zarządzaniu projektami, na co dzień pracujący w dynamicznym, międzynarodowym środowisku. Ekspert w dziedzinie automatyzacji procesów biznesowych i optymalizacji raportowania przy użyciu zaawansowanego Excela, Power Query oraz modeli generatywnej sztucznej inteligencji (ChatGPT, Copilot, Gemini). Skutecznie łączę wiedzę biznesową z rozwiązaniami technologicznymi, drastycznie redukując czas obsługi procesów operacyjnych. Obecnie poszukuję możliwości rozwoju w obszarze wdrażania innowacji technologicznych i analizy danych (AI / BI).</span>
+                        <span class="lang-en">Experienced Business Analyst with a strong background in finance, customer service, and project management, working daily in a dynamic, international environment. Expert in business process automation and reporting optimization using advanced Excel, Power Query, and generative AI models (ChatGPT, Copilot, Gemini). I effectively combine business knowledge with technological solutions, drastically reducing the handling time of operational processes. Currently seeking development opportunities in the implementation of technological innovations and data analysis (AI / BI).</span>
                     </p>
                 </section>
 
                 <!-- DOŚWIADCZENIE -->
-                <section class="mb-10">
-                    <h3 class="text-xl font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-6 uppercase tracking-wider">Doświadczenie zawodowe</h3>
+                <section class="mb-10 print:mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-6 uppercase tracking-wider">
+                        <span class="lang-pl">Doświadczenie zawodowe</span>
+                        <span class="lang-en">Professional Experience</span>
+                    </h3>
                     
-                    <div class="mb-8">
+                    <div class="mb-8 print:mb-6">
                         <div class="flex justify-between items-baseline mb-1">
                             <h4 class="text-lg font-bold text-gray-900">The Swatch Group (Polska) Sp. z o.o., Warszawa</h4>
                         </div>
@@ -194,14 +231,52 @@
                             <div class="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1.5"></div>
                             <div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2">
                                 <h5 class="text-md font-semibold text-primary">Business Analyst</h5>
-                                <span class="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">06.2020 – obecnie</span>
+                                <span class="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded">
+                                    <span class="lang-pl">06.2020 – obecnie</span>
+                                    <span class="lang-en">06.2020 – present</span>
+                                </span>
                             </div>
                             <ul class="list-disc list-outside ml-4 text-gray-700 space-y-2 mt-2 marker:text-gray-400">
-                                <li><strong class="text-gray-900 font-medium">Optymalizacja procesów biznesowych (AI & VBA):</strong> Wykorzystywanie modeli generatywnej sztucznej inteligencji (ChatGPT, Copilot) do szybkiego prototypowania skryptów VBA oraz automatyzacji zadań, co znacząco zwiększa produktywność pracy własnej i zespołu.</li>
-                                <li><strong class="text-gray-900 font-medium">Tworzenie narzędzi raportowych:</strong> Zaprojektowanie i wdrożenie zautomatyzowanego narzędzia do raportowania kosztów (przy użyciu Power Query i tabel przestawnych), co usprawniło weryfikację alokacji do centrów kosztowych (Cost Centers) i zoptymalizowało eksport danych do systemów zewnętrznych.</li>
-                                <li><strong class="text-gray-900 font-medium">Automatyzacja procesów księgowych:</strong> Stworzenie autorskiego generatora dekretów księgowych z zaawansowanym mapowaniem danych, co skróciło czas obsługi tego procesu o 4 godziny (redukcja czasu pracy o 80%).</li>
-                                <li><strong class="text-gray-900 font-medium">Modernizacja raportowania sprzedaży:</strong> Pełna automatyzacja cyklicznego raportowania (integracja zewnętrznych baz danych m.in. przez Analysis For Office, zautomatyzowana dystrybucja PDF/XLSX), oszczędzająca 1 godzinę pracy przy każdej iteracji i wprowadzająca model "self-service" dla menedżerów.</li>
-                                <li><strong class="text-gray-900 font-medium">Bieżąca analityka finansowa:</strong> Odpowiedzialność za kontrolę kosztów stałych, rezerwy (accruals), raportowanie miesięczne i ad-hoc do szwajcarskiej centrali firmy (FICO, budżety, kluczowe wskaźniki).</li>
+                                <li>
+                                    <strong class="text-gray-900 font-medium">
+                                        <span class="lang-pl">Optymalizacja procesów biznesowych (AI & VBA):</span>
+                                        <span class="lang-en">Business process optimization (AI & VBA):</span>
+                                    </strong> 
+                                    <span class="lang-pl">Wykorzystywanie modeli generatywnej sztucznej inteligencji (ChatGPT, Copilot) do szybkiego prototypowania skryptów VBA oraz automatyzacji zadań, co znacząco zwiększa produktywność pracy własnej i zespołu.</span>
+                                    <span class="lang-en">Utilizing generative AI models (ChatGPT, Copilot) for rapid VBA script prototyping and task automation, significantly increasing personal and team productivity.</span>
+                                </li>
+                                <li>
+                                    <strong class="text-gray-900 font-medium">
+                                        <span class="lang-pl">Tworzenie narzędzi raportowych:</span>
+                                        <span class="lang-en">Reporting tools development:</span>
+                                    </strong> 
+                                    <span class="lang-pl">Zaprojektowanie i wdrożenie zautomatyzowanego narzędzia do raportowania kosztów (przy użyciu Power Query i tabel przestawnych), co usprawniło weryfikację alokacji do centrów kosztowych (Cost Centers) i zoptymalizowało eksport danych do systemów zewnętrznych.</span>
+                                    <span class="lang-en">Designed and implemented an automated cost reporting tool (using Power Query and pivot tables), streamlining allocation verification to Cost Centers and optimizing data export to external systems.</span>
+                                </li>
+                                <li>
+                                    <strong class="text-gray-900 font-medium">
+                                        <span class="lang-pl">Automatyzacja procesów księgowych:</span>
+                                        <span class="lang-en">Accounting processes automation:</span>
+                                    </strong> 
+                                    <span class="lang-pl">Stworzenie autorskiego generatora dekretów księgowych z zaawansowanym mapowaniem danych, co skróciło czas obsługi tego procesu o 4 godziny (redukcja czasu pracy o 80%).</span>
+                                    <span class="lang-en">Created a proprietary accounting entry generator with advanced data mapping, reducing processing time by 4 hours (80% time reduction).</span>
+                                </li>
+                                <li>
+                                    <strong class="text-gray-900 font-medium">
+                                        <span class="lang-pl">Modernizacja raportowania sprzedaży:</span>
+                                        <span class="lang-en">Sales reporting modernization:</span>
+                                    </strong> 
+                                    <span class="lang-pl">Pełna automatyzacja cyklicznego raportowania (integracja zewnętrznych baz danych m.in. przez Analysis For Office, zautomatyzowana dystrybucja PDF/XLSX), oszczędzająca 1 godzinę pracy przy każdej iteracji i wprowadzająca model "self-service" dla menedżerów.</span>
+                                    <span class="lang-en">Full automation of cyclic reporting (integration of external databases via Analysis For Office, automated PDF/XLSX distribution), saving 1 hour per iteration and introducing a "self-service" model for managers.</span>
+                                </li>
+                                <li>
+                                    <strong class="text-gray-900 font-medium">
+                                        <span class="lang-pl">Bieżąca analityka finansowa:</span>
+                                        <span class="lang-en">Ongoing financial analytics:</span>
+                                    </strong> 
+                                    <span class="lang-pl">Odpowiedzialność za kontrolę kosztów stałych, rezerwy (accruals), raportowanie miesięczne i ad-hoc do szwajcarskiej centrali firmy (FICO, budżety, kluczowe wskaźniki).</span>
+                                    <span class="lang-en">Responsible for fixed cost control, accruals, monthly and ad-hoc reporting to the Swiss headquarters (FICO, budgets, KPIs).</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -213,8 +288,14 @@
                                 <span class="text-sm text-gray-500">01.2019 – 05.2020</span>
                             </div>
                             <ul class="list-disc list-outside ml-4 text-gray-700 space-y-1 marker:text-gray-400 text-sm">
-                                <li>Inicjowanie i wdrażanie nowych rozwiązań raportowych dla działu finansów z wykorzystaniem dobrych praktyk zarządzania projektami.</li>
-                                <li>Identyfikacja wąskich gardeł w procesach przepływu danych i proponowanie usprawnień analitycznych.</li>
+                                <li>
+                                    <span class="lang-pl">Inicjowanie i wdrażanie nowych rozwiązań raportowych dla działu finansów z wykorzystaniem dobrych praktyk zarządzania projektami.</span>
+                                    <span class="lang-en">Initiating and implementing new reporting solutions for the finance department utilizing project management best practices.</span>
+                                </li>
+                                <li>
+                                    <span class="lang-pl">Identyfikacja wąskich gardeł w procesach przepływu danych i proponowanie usprawnień analitycznych.</span>
+                                    <span class="lang-en">Identifying bottlenecks in data flow processes and proposing analytical improvements.</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -226,7 +307,10 @@
                                 <span class="text-sm text-gray-500">01.2019 – 12.2019</span>
                             </div>
                             <ul class="list-disc list-outside ml-4 text-gray-700 space-y-1 marker:text-gray-400 text-sm">
-                                <li>Rozwój i implementacja nowych narzędzi raportowych optymalizujących codzienną pracę działu obsługi klienta.</li>
+                                <li>
+                                    <span class="lang-pl">Rozwój i implementacja nowych narzędzi raportowych optymalizujących codzienną pracę działu obsługi klienta.</span>
+                                    <span class="lang-en">Development and implementation of new reporting tools optimizing the daily work of the customer service department.</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -238,7 +322,10 @@
                                 <span class="text-sm text-gray-500">08.2011 – 12.2018</span>
                             </div>
                             <ul class="list-disc list-outside ml-4 text-gray-700 space-y-1 marker:text-gray-400 text-sm">
-                                <li>Zarządzanie zespołem oraz koordynacja kompleksowych procesów obsługi klienta.</li>
+                                <li>
+                                    <span class="lang-pl">Zarządzanie zespołem oraz koordynacja kompleksowych procesów obsługi klienta.</span>
+                                    <span class="lang-en">Team management and coordination of complex customer service processes.</span>
+                                </li>
                             </ul>
                         </div>
 
@@ -250,7 +337,10 @@
                                 <span class="text-sm text-gray-500">12.2005 – 07.2011</span>
                             </div>
                             <ul class="list-disc list-outside ml-4 text-gray-700 space-y-1 marker:text-gray-400 text-sm">
-                                <li>Obsługa procesów reklamacyjnych i naprawczych oraz dbałość o wysokie standardy relacji z klientami.</li>
+                                <li>
+                                    <span class="lang-pl">Obsługa procesów reklamacyjnych i naprawczych oraz dbałość o wysokie standardy relacji z klientami.</span>
+                                    <span class="lang-en">Handling complaint and repair processes while ensuring high standards of customer relations.</span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -261,26 +351,44 @@
             <div class="cv-sidebar lg:col-span-1 bg-slate-50 border-l border-gray-200 px-8 py-8 md:px-8 md:py-10">
                 
                 <!-- UMIEJĘTNOŚCI -->
-                <section class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">Umiejętności</h3>
+                <section class="mb-8 print:mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">
+                        <span class="lang-pl">Umiejętności</span>
+                        <span class="lang-en">Skills</span>
+                    </h3>
                     
                     <div class="mb-4">
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">Twarde i Technologiczne</h4>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">
+                            <span class="lang-pl">Twarde i Technologiczne</span>
+                            <span class="lang-en">Hard & Technological</span>
+                        </h4>
                         <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">MS Excel (Ekspert)</span>
+                            <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">
+                                <span class="lang-pl">MS Excel (Ekspert)</span>
+                                <span class="lang-en">MS Excel (Expert)</span>
+                            </span>
                             <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">Power Query</span>
-                            <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">VBA / Makra</span>
+                            <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">
+                                <span class="lang-pl">VBA / Makra</span>
+                                <span class="lang-en">VBA / Macros</span>
+                            </span>
                             <span class="bg-blue-100 text-primary text-sm px-3 py-1 rounded-full font-medium">Prompt Eng. (AI)</span>
                             <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">ChatGPT / Copilot</span>
                             <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">Analysis For Office</span>
                             <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">SAP (FICO)</span>
                             <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">BI Tools</span>
-                            <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">Zarządzanie projektami</span>
+                            <span class="bg-gray-200 text-gray-700 text-sm px-3 py-1 rounded-full font-medium">
+                                <span class="lang-pl">Zarządzanie projektami</span>
+                                <span class="lang-en">Project Management</span>
+                            </span>
                         </div>
                     </div>
 
                     <div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 mt-6">Miękkie i Biznesowe</h4>
+                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2 mt-6">
+                            <span class="lang-pl">Miękkie i Biznesowe</span>
+                            <span class="lang-en">Soft & Business</span>
+                        </h4>
                         <ul class="space-y-2 text-sm text-gray-700">
                             <li class="flex items-start">
                                 <svg class="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -288,65 +396,116 @@
                             </li>
                             <li class="flex items-start">
                                 <svg class="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span>Problem-solving i analityka</span>
+                                <span>
+                                    <span class="lang-pl">Problem-solving i analityka</span>
+                                    <span class="lang-en">Problem-solving & analytics</span>
+                                </span>
                             </li>
                             <li class="flex items-start">
                                 <svg class="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span>Zarządzanie wdrożeniami</span>
+                                <span>
+                                    <span class="lang-pl">Zarządzanie wdrożeniami</span>
+                                    <span class="lang-en">Implementation management</span>
+                                </span>
                             </li>
                             <li class="flex items-start">
                                 <svg class="w-4 h-4 text-primary mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span>Praca w międzynarodowym zespole</span>
+                                <span>
+                                    <span class="lang-pl">Praca w międzynarodowym zespole</span>
+                                    <span class="lang-en">International team collaboration</span>
+                                </span>
                             </li>
                         </ul>
                     </div>
                 </section>
 
                 <!-- JĘZYKI -->
-                <section class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">Języki</h3>
+                <section class="mb-8 print:mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">
+                        <span class="lang-pl">Języki</span>
+                        <span class="lang-en">Languages</span>
+                    </h3>
                     <ul class="space-y-3">
                         <li>
                             <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium text-gray-800">Polski</span>
-                                <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-0.5 rounded">Ojczysty</span>
+                                <span class="font-medium text-gray-800">
+                                    <span class="lang-pl">Polski</span>
+                                    <span class="lang-en">Polish</span>
+                                </span>
+                                <span class="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-0.5 rounded">
+                                    <span class="lang-pl">Ojczysty</span>
+                                    <span class="lang-en">Native</span>
+                                </span>
                             </div>
                         </li>
                         <li>
                             <div class="flex justify-between items-center mb-1">
-                                <span class="font-medium text-gray-800">Angielski</span>
-                                <span class="text-xs font-bold text-primary bg-blue-100 px-2 py-0.5 rounded">C1 / Zaawansowany</span>
+                                <span class="font-medium text-gray-800">
+                                    <span class="lang-pl">Angielski</span>
+                                    <span class="lang-en">English</span>
+                                </span>
+                                <span class="text-xs font-bold text-primary bg-blue-100 px-2 py-0.5 rounded">
+                                    <span class="lang-pl">C1 / Zaawansowany</span>
+                                    <span class="lang-en">C1 / Advanced</span>
+                                </span>
                             </div>
-                            <p class="text-xs text-gray-600">Biegła komunikacja w środowisku międzynarodowym, słownictwo biznesowe i techniczne.</p>
+                            <p class="text-xs text-gray-600">
+                                <span class="lang-pl">Biegła komunikacja w środowisku międzynarodowym, słownictwo biznesowe i techniczne.</span>
+                                <span class="lang-en">Fluent communication in an international environment, business and technical vocabulary.</span>
+                            </p>
                         </li>
                     </ul>
                 </section>
 
                 <!-- WYKSZTAŁCENIE -->
-                <section class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">Wykształcenie</h3>
+                <section class="mb-8 print:mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">
+                        <span class="lang-pl">Wykształcenie</span>
+                        <span class="lang-en">Education</span>
+                    </h3>
                     
                     <div class="mb-3">
-                        <h4 class="font-semibold text-gray-800 text-sm">Szkoła Główna Handlowa w Warszawie (SGH)</h4>
-                        <p class="text-sm text-gray-600 mt-0.5">Studia podyplomowe: Międzynarodowe Standardy Sprawozdawczości Finansowej</p>
+                        <h4 class="font-semibold text-gray-800 text-sm">
+                            <span class="lang-pl">Szkoła Główna Handlowa w Warszawie (SGH)</span>
+                            <span class="lang-en">SGH Warsaw School of Economics</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 mt-0.5">
+                            <span class="lang-pl">Studia podyplomowe: Międzynarodowe Standardy Sprawozdawczości Finansowej</span>
+                            <span class="lang-en">Postgraduate studies: International Financial Reporting Standards (IFRS)</span>
+                        </p>
                     </div>
 
                     <div>
-                        <h4 class="font-semibold text-gray-800 text-sm">Wyższa Szkoła Ekonomiczno-Informatyczna, Warszawa</h4>
-                        <p class="text-sm text-gray-600 mt-0.5">Licencjat: Informatyka i ekonomia w obszarze technologii internetowych</p>
+                        <h4 class="font-semibold text-gray-800 text-sm">
+                            <span class="lang-pl">Wyższa Szkoła Ekonomiczno-Informatyczna, Warszawa</span>
+                            <span class="lang-en">Higher School of Economics and Computer Science, Warsaw</span>
+                        </h4>
+                        <p class="text-sm text-gray-600 mt-0.5">
+                            <span class="lang-pl">Licencjat: Informatyka i ekonomia w obszarze technologii internetowych</span>
+                            <span class="lang-en">Bachelor's degree: Computer Science and Economics in Internet Technologies</span>
+                        </p>
                     </div>
                 </section>
 
                 <!-- KURSY -->
-                <section class="mb-8">
-                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">Szkolenia</h3>
+                <section class="mb-8 print:mb-6">
+                    <h3 class="text-lg font-bold text-gray-900 border-b-2 border-primary inline-block pb-1 mb-4 uppercase tracking-wider">
+                        <span class="lang-pl">Szkolenia</span>
+                        <span class="lang-en">Training & Certifications</span>
+                    </h3>
                     <ul class="space-y-3">
                         <li class="relative pl-3 border-l-2 border-gray-300">
-                            <h4 class="font-medium text-gray-800 text-sm">Analiza finansowa w praktyce</h4>
+                            <h4 class="font-medium text-gray-800 text-sm">
+                                <span class="lang-pl">Analiza finansowa w praktyce</span>
+                                <span class="lang-en">Financial analysis in practice</span>
+                            </h4>
                             <p class="text-xs text-gray-500">LABA.pl • 03.2022</p>
                         </li>
                         <li class="relative pl-3 border-l-2 border-gray-300">
-                            <h4 class="font-medium text-gray-800 text-sm">Analiza finansowa przedsiębiorstwa</h4>
+                            <h4 class="font-medium text-gray-800 text-sm">
+                                <span class="lang-pl">Analiza finansowa przedsiębiorstwa</span>
+                                <span class="lang-en">Corporate financial analysis</span>
+                            </h4>
                             <p class="text-xs text-gray-500">Akademia MDDP • 06.2021</p>
                         </li>
                     </ul>
@@ -358,11 +517,12 @@
        <!-- STOPKA (Klauzula RODO + KOD QR) -->
         <div class="cv-footer bg-gradient-to-b from-slate-50 to-white px-8 py-4 print-hide-if-needed border-t border-gray-200 flex flex-row justify-between items-center gap-4">
             <p class="text-gray-400 text-[12px] text-justify flex-1 m-0">
-                Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).
+                <span class="lang-pl">Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).</span>
+                <span class="lang-en">I consent to the processing of my personal data for the purposes of the recruitment process in accordance with Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the protection of natural persons with regard to the processing of personal data and on the free movement of such data, and repealing Directive 95/46/EC (GDPR).</span>
             </p>
             <div class="flex-shrink-0">
-                <!-- Podwojony rozmiar na klasach Tailwind (z w-16/h-16 na w-32/h-32) oraz zwiększona rozdzielczość w linku z API (size=150x150) -->
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3APi%C4%99ciak%3BBart%C5%82omiej%3B%3B%3B%0AFN%3ABart%C5%82omiej%20Pi%C4%99ciak%0AEMAIL%3Abartek.pieciak%40gmail.com%0ATEL%3A%2B48%20502%20708%20736%0AURL%3Ahttps%3A%2F%2Flinkedin.com%2Fin%2Fbart%C5%82omiej-pi%C4%99ciak-a630b280%0AURL%3Ahttps%3A%2F%2Fbartekpieciak.github.io%2FCV%2F%0AEND%3AVCARD" alt="Skanuj, aby zapisać kontakt" class="w-32 h-32 border border-gray-200 p-1.5 bg-white rounded-md shadow-sm opacity-90 hover:opacity-100 transition-opacity">
+                <!-- Klasy print:w-20 print:h-20 dodatkowo zmniejszają wymiary kodu QR na wydruku, aby zaoszczędzić jeszcze więcej miejsca -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3APi%C4%99ciak%3BBart%C5%82omiej%3B%3B%3B%0AFN%3ABart%C5%82omiej%20Pi%C4%99ciak%0AEMAIL%3Abartek.pieciak%40gmail.com%0ATEL%3A%2B48%20502%20708%20736%0AURL%3Ahttps%3A%2F%2Flinkedin.com%2Fin%2Fbart%C5%82omiej-pi%C4%99ciak-a630b280%0AURL%3Ahttps%3A%2F%2Fbartekpieciak.github.io%2FCV%2F%0AEND%3AVCARD" alt="Scan to save contact" class="w-32 h-32 print:w-20 print:h-20 border border-gray-200 p-1.5 bg-white rounded-md shadow-sm opacity-90 hover:opacity-100 transition-opacity">
             </div>
         </div>
     </div>
