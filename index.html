@@ -75,13 +75,13 @@
                 border: none !important;
                 display: flex !important;
                 flex-direction: column !important;
-                min-height: 296mm !important; /* Wymusza pełną wysokość A4 */
+                height: 100% !important; 
             }
             .print-hide {
                 display: none !important;
             }
             
-            /* --- KRYTYCZNE POPRAWKI LAYOUTU DLA WYDRUKU --- */
+            /* --- KRYTYCZNE POPRAWKI LAYOUTU DLA WYDRUKU (BAZA DLA WERSJI PL) --- */
             
             /* 1. Wymuszenie układu dwukolumnowego i rozciągnięcia */
             .cv-grid {
@@ -90,22 +90,22 @@
                 flex-grow: 1 !important; /* Wypełnia dostępną przestrzeń, odpychając stopkę w dół */
             }
             
-            /* 2. Zwiększona kompresja marginesów i paddingów (aby zmieścić na 1 stronie) */
+            /* 2. Zwiększona kompresja marginesów i paddingów (aby na pewno zmieścić na 1 stronie PL) */
             .cv-header {
                 display: flex !important;
                 flex-direction: row !important;
                 justify-content: space-between !important;
                 align-items: center !important;
-                padding: 1.0rem 2rem !important; /* Mniej niż 1.4rem */
+                padding: 0.8rem 2rem !important; 
             }
             .cv-header > div:last-child {
                 margin-top: 0 !important;
             }
             .cv-main {
-                padding: 1.0rem 2rem !important;
+                padding: 0.8rem 2rem !important;
             }
             .cv-sidebar {
-                padding: 1.0rem 1.6rem !important;
+                padding: 0.8rem 1.6rem !important;
             }
             .cv-footer {
                 padding: 0.4rem 2rem !important;
@@ -113,28 +113,55 @@
                 margin-top: auto !important; /* Dociska stopkę z RODO do samego dołu! */
             }
             
-            /* 3. Bardziej agresywna kompresja odstępów pionowych w sekcjach */
-            section.mb-10, section.mb-8 { margin-bottom: 0.75rem !important; }
-            .mb-8 { margin-bottom: 0.5rem !important; }
-            .mb-6 { margin-bottom: 0.4rem !important; }
-            .mb-4 { margin-bottom: 0.3rem !important; }
-            .mb-3 { margin-bottom: 0.3rem !important; }
-            .mt-6 { margin-top: 0.3rem !important; }
-            .mt-4 { margin-top: 0.2rem !important; }
-            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.15rem !important; }
-            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.15rem !important; }
+            /* 3. Agresywna kompresja odstępów pionowych w sekcjach */
+            section.mb-10, section.mb-8 { margin-bottom: 0.6rem !important; }
+            .mb-8 { margin-bottom: 0.4rem !important; }
+            .mb-6 { margin-bottom: 0.3rem !important; }
+            .mb-4 { margin-bottom: 0.2rem !important; }
+            .mb-3 { margin-bottom: 0.2rem !important; }
+            .mt-6 { margin-top: 0.2rem !important; }
+            .mt-4 { margin-top: 0.15rem !important; }
+            .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.1rem !important; }
+            .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.1rem !important; }
             
-            /* 4. Delikatne skalowanie czcionek (Optymalne proporcje) */
+            /* 4. Skalowanie czcionek i ciaśniejsza interlinia (dla PL) */
             h1 { font-size: 2.1rem !important; line-height: 1 !important; }
             h2 { font-size: 1.15rem !important; margin-top: 0.25rem !important; }
             h3 { font-size: 0.98rem !important; margin-bottom: 0.2rem !important; }
             h4, h5 { font-size: 0.82rem !important; }
-            p, li, span, a { font-size: 0.69rem !important; line-height: 1.36 !important; }
+            p, li, span, a { font-size: 0.71rem !important; line-height: 1.30 !important; }
             
             /* 5. Kompresja tagów (pill) w umiejętnościach */
             .gap-2 { gap: 0.25rem !important; }
             .px-3 { padding-left: 0.4rem !important; padding-right: 0.4rem !important; }
             .py-1 { padding-top: 0.1rem !important; padding-bottom: 0.1rem !important; }
+
+
+            /* --- ROZLUŹNIENIE UKŁADU TYLKO DLA WERSJI ANGIELSKIEJ --- */
+            /* Wersja angielska jest krótsza tekstowo, więc przywracamy jej oddech, aby wypełniła stronę */
+            
+            body.lang-en-active .cv-header { padding: 1.2rem 2rem !important; }
+            body.lang-en-active .cv-main { padding: 1.2rem 2rem !important; }
+            body.lang-en-active .cv-sidebar { padding: 1.2rem 1.6rem !important; }
+            
+            body.lang-en-active section.mb-10, 
+            body.lang-en-active section.mb-8 { margin-bottom: 0.9rem !important; }
+            body.lang-en-active .mb-8 { margin-bottom: 0.6rem !important; }
+            body.lang-en-active .mb-6 { margin-bottom: 0.5rem !important; }
+            body.lang-en-active .mb-4 { margin-bottom: 0.4rem !important; }
+            body.lang-en-active .mt-6 { margin-top: 0.4rem !important; }
+            body.lang-en-active .mt-4 { margin-top: 0.25rem !important; }
+            
+            body.lang-en-active p, 
+            body.lang-en-active li, 
+            body.lang-en-active span, 
+            body.lang-en-active a { 
+                font-size: 0.72rem !important; 
+                line-height: 1.34 !important; 
+            }
+            
+            body.lang-en-active .space-y-2 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem !important; }
+            body.lang-en-active .space-y-3 > :not([hidden]) ~ :not([hidden]) { margin-top: 0.2rem !important; }
         }
     </style>
 </head>
@@ -147,20 +174,41 @@
             <span class="lang-en">Viewing options (screen only):</span>
         </div>
         <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-            <!-- Przycisk zmiany języka -->
-            <button onclick="toggleLanguage()" class="w-full sm:w-auto bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm border border-gray-300">
-                <span class="lang-pl">🇬🇧 Switch to English</span>
-                <span class="lang-en">🇵🇱 Zmień na Polski</span>
+            <!-- Przycisk zmiany języka ze stałą szerokością i okrągłymi flagami -->
+            <button onclick="toggleLanguage()" class="w-full sm:w-[210px] bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm border border-gray-300">
+                <span class="lang-pl flex items-center justify-center">
+                    <svg viewBox="0 0 64 64" class="w-4 h-4 mr-2 rounded-full shadow-sm border border-gray-300/50 flex-shrink-0">
+                        <clipPath id="circle-uk"><circle cx="32" cy="32" r="32"/></clipPath>
+                        <g clip-path="url(#circle-uk)">
+                            <rect width="64" height="64" fill="#012169"/>
+                            <path d="M0 0l64 64M64 0L0 64" stroke="#fff" stroke-width="12"/>
+                            <path d="M0 0l64 64M64 0L0 64" stroke="#C8102E" stroke-width="6"/>
+                            <path d="M32 0v64M0 32h64" stroke="#fff" stroke-width="16"/>
+                            <path d="M32 0v64M0 32h64" stroke="#C8102E" stroke-width="10"/>
+                        </g>
+                    </svg>
+                    Switch to English
+                </span>
+                <span class="lang-en flex items-center justify-center">
+                    <svg viewBox="0 0 64 64" class="w-4 h-4 mr-2 rounded-full shadow-sm border border-gray-300/50 flex-shrink-0">
+                        <clipPath id="circle-pl"><circle cx="32" cy="32" r="32"/></clipPath>
+                        <g clip-path="url(#circle-pl)">
+                            <rect width="64" height="32" fill="#fff"/>
+                            <rect y="32" width="64" height="32" fill="#dc143c"/>
+                        </g>
+                    </svg>
+                    Zmień na Polski
+                </span>
             </button>
-            <button onclick="toggleMobileView()" class="w-full sm:w-auto bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm">
-                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                <span id="viewToggleTextPl" class="lang-pl">Wymuś widok A4 na telefonie</span>
-                <span id="viewToggleTextEn" class="lang-en">Force A4 view on mobile</span>
+            <button onclick="toggleMobileView()" class="w-full sm:w-[240px] bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-medium py-2 px-4 rounded-md shadow-sm flex justify-center items-center transition-colors duration-200 text-sm">
+                <svg class="w-4 h-4 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                <span id="viewToggleTextPl" class="lang-pl truncate">Wymuś widok A4 (telefon)</span>
+                <span id="viewToggleTextEn" class="lang-en truncate">Force A4 view (mobile)</span>
             </button>
-            <button onclick="window.print()" class="w-full sm:w-auto bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex justify-center items-center transition-colors duration-200 text-sm">
-                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                <span class="lang-pl">Zapisz jako PDF / Drukuj</span>
-                <span class="lang-en">Save as PDF / Print</span>
+            <button onclick="window.print()" class="w-full sm:w-[220px] bg-primary hover:bg-blue-800 text-white font-medium py-2 px-4 rounded-md shadow flex justify-center items-center transition-colors duration-200 text-sm">
+                <svg class="w-5 h-5 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                <span class="lang-pl truncate">Zapisz PDF / Drukuj</span>
+                <span class="lang-en truncate">Save PDF / Print</span>
             </button>
         </div>
     </div>
