@@ -354,11 +354,18 @@
             </div>
         </div>
         
-        <!-- STOPKA (Klauzula RODO) -->
-        <div class="cv-footer bg-gray-100 text-gray-400 text-[10px] px-8 py-4 text-justify print-hide-if-needed border-t border-gray-200">
-            Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).
+       <!-- STOPKA (Klauzula RODO + KOD QR) -->
+        <div class="cv-footer bg-gradient-to-b from-slate-50 to-white px-8 py-4 print-hide-if-needed border-t border-gray-200 flex flex-row justify-between items-center gap-4">
+            <p class="text-gray-400 text-[12px] text-justify flex-1 m-0">
+                Wyrażam zgodę na przetwarzanie moich danych osobowych dla potrzeb niezbędnych do realizacji procesu rekrutacji zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. w sprawie ochrony osób fizycznych w związku z przetwarzaniem danych osobowych i w sprawie swobodnego przepływu takich danych oraz uchylenia dyrektywy 95/46/WE (RODO).
+            </p>
+            <div class="flex-shrink-0">
+                <!-- Podwojony rozmiar na klasach Tailwind (z w-16/h-16 na w-32/h-32) oraz zwiększona rozdzielczość w linku z API (size=150x150) -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=BEGIN%3AVCARD%0AVERSION%3A3.0%0AN%3APi%C4%99ciak%3BBart%C5%82omiej%3B%3B%3B%0AFN%3ABart%C5%82omiej%20Pi%C4%99ciak%0AEMAIL%3Abartek.pieciak%40gmail.com%0ATEL%3A%2B48%20502%20708%20736%0AURL%3Ahttps%3A%2F%2Flinkedin.com%2Fin%2Fbart%C5%82omiej-pi%C4%99ciak-a630b280%0AURL%3Ahttps%3A%2F%2Fbartekpieciak.github.io%2FCV%2F%0AEND%3AVCARD" alt="Skanuj, aby zapisać kontakt" class="w-32 h-32 border border-gray-200 p-1.5 bg-white rounded-md shadow-sm opacity-90 hover:opacity-100 transition-opacity">
+            </div>
         </div>
     </div>
+
 
 </body>
 </html>
